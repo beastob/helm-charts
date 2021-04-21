@@ -37,3 +37,11 @@ $ helm delete my-release
 | `foldAllowIP`        | whitelist IP addresses for accessing the web console                   | `"192.168.1.1/24"`                                      |
 | `foldUser`           | user name                                                              | `Anonymous`                                             |
 | `foldPassKey`        | passkey for your account                                               | `'""'`                                                  |
+
+## Publish Chart
+
+```shell
+$ helm package charts/foldingathome
+$ mv charts/foldingathome-*.tgz docs
+$ helm repo index docs --url https://beastob.github.io/foldingathome-arm64/
+```
