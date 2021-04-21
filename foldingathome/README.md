@@ -1,5 +1,6 @@
 # Folding@Home arm64
 
+Source Docker Image repository: https://github.com/beastob/foldingathome-arm64
 ## Prerequisites
 
 - Kubernetes 1.18+
@@ -10,8 +11,8 @@
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm repo add foldingathome https://beastob.github.io/foldingathome-arm64/
-$ helm install my-release foldingathome/foldingathome
+$ helm repo add beastob https://beastob.github.io/helm-charts/
+$ helm install my-release beastob/foldingathome
 ```
 
 These commands deploy NGINX Open Source on the Kubernetes cluster in the default configuration.
@@ -37,11 +38,3 @@ $ helm delete my-release
 | `foldAllowIP`        | whitelist IP addresses for accessing the web console                   | `"192.168.1.1/24"`                                      |
 | `foldUser`           | user name                                                              | `Anonymous`                                             |
 | `foldPassKey`        | passkey for your account                                               | `'""'`                                                  |
-
-## Publish Chart
-
-```shell
-$ helm package charts/foldingathome
-$ mv charts/foldingathome-*.tgz docs
-$ helm repo index docs --url https://beastob.github.io/foldingathome-arm64/
-```
