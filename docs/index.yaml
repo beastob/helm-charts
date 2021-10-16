@@ -3,7 +3,7 @@ entries:
   foldingathome:
   - apiVersion: v2
     appVersion: 7.6.21
-    created: "2021-10-16T22:59:44.828516436+08:00"
+    created: "2021-10-16T23:07:43.709714758+08:00"
     description: Folding@Home-arm64 Helm chart for Kubernetes
     digest: 12acd3fcbb1cc5acd222533dafca9bd4c3160e2c07b3db03d276d26d8e10ba69
     maintainers:
@@ -19,7 +19,7 @@ entries:
   url-shortener:
   - apiVersion: v2
     appVersion: 1.0.2
-    created: "2021-10-16T22:59:44.832924867+08:00"
+    created: "2021-10-16T23:07:43.713842285+08:00"
     dependencies:
     - condition: postgresql.enabled
       name: postgresql-ha
@@ -37,4 +37,4 @@ entries:
     urls:
     - https://beastob.github.io/helm-charts/url-shortener/url-shortener-1.0.2.tgz
     version: 1.0.2
-generated: "2021-10-16T22:59:44.827842532+08:00"
+generated: "2021-10-16T23:07:43.708817452+08:00"
