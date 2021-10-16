@@ -1,0 +1,124 @@
+# Default values for url-shortener.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 3
+
+image:
+  repository: beastob/url-shortener
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.2"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /actuator/health/liveness
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 1
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 5
+  successThreshold: 1
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+topologySpreadConstraints: {}
+
+
+
+
+## @section Database parameters
+
+## PostgreSQL-HA chart configuration
+## ref: https://github.com/bitnami/charts/blob/master/bitnami/postgresql-ha/values.yaml
+##
+postgresql-ha:
+  global:
+    postgresql:
+      username: "url_shortener"
+      password: "cfdee891d75ae31d58506a2e28a4cd3e"
+      database: "url_shortener"
+      repmgrUsername: "replica_url_shortener"
+      repmgrPassword: "cfdee891d75ae31d58506a2e28a4cd3e"
+      repmgrDatabase: "replica_url_shortener"
+    pgpool:
+      adminUsername: "url_shortener"
+      adminPassword: "cfdee891d75ae31d58506a2e28a4cd3e"
+  postgresqlImage:
+    registry: docker.io
+    repository: bitnami/postgresql-repmgr
+    tag: 13.4.0-debian-10-r61
+  persistence:
+    enabled: true
+    size: 2Gi
+  pgpool:
+    replicaCount: 2
