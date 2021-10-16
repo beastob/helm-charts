@@ -3,9 +3,13 @@
 ---
 
 ## Install Helm Chart
-
+Add Helm chart repository
 ```shell
-cd ./charts/url-shortener
+helm repo add beastob https://beastob.github.io/helm-charts/
+helm repo update
+```
+Install helm chart
+```shell
 helm install url-shortener . -f values.yaml
 ```
 
